@@ -1,0 +1,24 @@
+{
+    "name": "soleimanpour/toolkit",
+    "description": "Custom Package",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Soleimanpour\\Toolkit\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Mohammad Soleimanpour",
+            "email": "msoleimanpour2515@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.2"
+    }
+}

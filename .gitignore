@@ -1,0 +1,22 @@
+# Ignore the vendor directory
+/vendor/
+
+# Ignore cache and logs
+/.phpunit.result.cache
+/.php_cs.cache
+
+# Ignore environment variables
+.env
+
+
+# Ignore IDE-specific files (e.g., PhpStorm, VSCode)
+/.idea/
+/.vscode/
+/.vagrant/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Windows system files
+Thumbs.db
+
