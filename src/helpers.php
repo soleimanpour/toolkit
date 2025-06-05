@@ -2,7 +2,6 @@
 
 namespace Soleimanpour\Toolkit;
 
-
 if (!function_exists('to_base')) {
     /**
      * Converts a number to any base up to 62.
@@ -13,7 +12,7 @@ if (!function_exists('to_base')) {
      */
     function to_base(int $number, int $base = 62): string
     {
-        $characters = '0123456789abcdefghilkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $result = '';
 
         if ($number === 0) {
@@ -30,28 +29,42 @@ if (!function_exists('to_base')) {
     }
 }
 
+if (!function_exists('custom_string_to_int')) {
+    /**
+     * Converts a string to a numeric hash preserving order of characters.
+     *
+     * @param string $input
+     * @return int
+     */
+    function custom_string_to_int(string $input): int
+    {
+        $hash = 0;
+        $prime = 31;
+        $modulus = 1000000007;
+
+        $length = strlen($input);
+        for ($i = 0; $i < $length; $i++) {
+            $charCode = ord($input[$i]);
+            $hash = ($hash * $prime + $charCode) % $modulus;
+        }
+
+        return $hash;
+    }
+}
+
 if (!function_exists('generate_short_url')) {
     /**
-     * Generates a short URL-like string based on input and current time.
+     * Generates a short, deterministic URL-like string based on input only.
      *
      * @param string|int $input The input to convert.
-     * @return string The short unique URL-like string.
+     * @return string The short URL-like string.
      */
     function generate_short_url(string|int $input): string
     {
-        // Convert input string to a numeric value (sum of ASCII values)
-        $inputString = (string)$input;
-        $inputNumber = array_reduce(
-            str_split($inputString),
-            fn(int $carry, string $char) => $carry + ord($char),
-            0
-        );
+        $inputNumber = is_int($input)
+            ? $input
+            : custom_string_to_int((string)$input);
 
-        // Convert input and time to base 62
-        $inputBase62 = to_base($inputNumber);
-        $timeBase62 = to_base(time());
-
-        // Combine input and time
-        return $inputBase62 . $timeBase62;
+        return to_base($inputNumber);
     }
 }
